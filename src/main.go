@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/theWando/wan.do/src/routes"
 	"log"
 	"net/http"
 	"time"
@@ -16,11 +17,8 @@ func startServer() {
 	log.Fatal(server.ListenAndServe())
 }
 
-type UrlMapping struct {
-}
-
 func loadServerConfiguration() *http.Server {
-	requestHandler := UrlMapping{}
+	requestHandler := routes.UrlMapping{}
 	return &http.Server{
 		Addr:           ":8081",
 		Handler:        requestHandler,
@@ -28,8 +26,4 @@ func loadServerConfiguration() *http.Server {
 		WriteTimeout:   1 * time.Second,
 		MaxHeaderBytes: 1 << 20,
 	}
-}
-
-func (u UrlMapping) ServeHTTP(http.ResponseWriter, *http.Request) {
-	log.Println("Request received!")
 }
